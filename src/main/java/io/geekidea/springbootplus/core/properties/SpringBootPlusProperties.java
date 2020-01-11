@@ -27,6 +27,7 @@ import java.util.List;
 
 /**
  * spring-boot-plus属性配置信息
+ *
  * @author geekidea
  * @date 2019-08-04
  * @since 1.2.0-RELEASE
@@ -41,14 +42,14 @@ public class SpringBootPlusProperties {
     private boolean enableAnsi;
 
     /**
-     * 请求日志在控制台是否格式化输出，local环境建议开启，服务器环境设置为false
+     * 是否启用验证码
      */
-    private boolean requestLogFormat;
+    private boolean enableVerifyCode;
 
     /**
-     * 响应日志在控制台是否格式化输出，local环境建议开启，服务器环境设置为false
+     * 实现BaseEnum接口的枚举包
      */
-    private boolean responseLogFormat;
+    private String[] enumPackages;
 
     /**
      * 拦截器配置
@@ -102,6 +103,7 @@ public class SpringBootPlusProperties {
 
     /**
      * 项目静态资源访问配置
+     *
      * @see SpringBootPlusWebMvcConfig addResourceHandlers
      */
     private String resourceHandlers;

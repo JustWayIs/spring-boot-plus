@@ -15,15 +15,9 @@
  */
 package io.geekidea.springbootplus.core.config;
 
-import io.geekidea.springbootplus.aop.LogAop;
 import io.geekidea.springbootplus.core.properties.*;
-import io.geekidea.springbootplus.interceptor.PermissionInterceptor;
-import io.geekidea.springbootplus.resource.interceptor.DownloadInterceptor;
-import io.geekidea.springbootplus.resource.interceptor.ResourceInterceptor;
-import io.geekidea.springbootplus.resource.interceptor.UploadInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -44,62 +38,4 @@ import org.springframework.context.annotation.Configuration;
 })
 public class SpringBootPlusConfig {
 
-    /**
-     * 配置日志AOP
-     *
-     * @param springBootPlusProperties
-     * @return
-     */
-    @Bean
-    public LogAop logAop(SpringBootPlusProperties springBootPlusProperties) {
-        LogAop logAop = new LogAop();
-        logAop.setRequestLogFormat(springBootPlusProperties.isRequestLogFormat());
-        logAop.setResponseLogFormat(springBootPlusProperties.isResponseLogFormat());
-        log.debug("init LogAop success");
-        return logAop;
-    }
-
-    /**
-     * 权限拦截器
-     *
-     * @return
-     */
-    @Bean
-    public PermissionInterceptor permissionInterceptor() {
-        PermissionInterceptor permissionInterceptor = new PermissionInterceptor();
-        return permissionInterceptor;
-    }
-
-    /**
-     * 上传拦截器
-     *
-     * @return
-     */
-    @Bean
-    public UploadInterceptor uploadInterceptor() {
-        UploadInterceptor uploadInterceptor = new UploadInterceptor();
-        return uploadInterceptor;
-    }
-
-    /**
-     * 资源拦截器
-     *
-     * @return
-     */
-    @Bean
-    public ResourceInterceptor resourceInterceptor() {
-        ResourceInterceptor resourceInterceptor = new ResourceInterceptor();
-        return resourceInterceptor;
-    }
-
-    /**
-     * 下载拦截器
-     *
-     * @return
-     */
-    @Bean
-    public DownloadInterceptor downloadInterceptor() {
-        DownloadInterceptor downloadInterceptor = new DownloadInterceptor();
-        return downloadInterceptor;
-    }
 }

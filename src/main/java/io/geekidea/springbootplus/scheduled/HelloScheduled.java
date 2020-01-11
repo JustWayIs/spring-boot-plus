@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package io.geekidea.springbootplus.xss;
+package io.geekidea.springbootplus.scheduled;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.text.StringEscapeUtils;
-
-import java.io.IOException;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 /**
- * Jackson响应参数字符串转义处理
+ * Hello任务调度
  *
  * @author geekidea
- * @date 2019-10-10
- * @since 1.3.1.RELEASE
+ * @date 2019-10-29
  **/
 @Slf4j
-public class XssJacksonSerializer extends JsonSerializer<String> {
+@Component
+public class HelloScheduled {
 
-    @Override
-    public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(StringEscapeUtils.escapeHtml4(s));
+    /**
+     * 每小时执行一次
+     */
+    @Scheduled(cron = "0 0 0/1 * * ? ")
+    public void hello() {
+        log.debug("Test Scheduled...");
     }
 
 }

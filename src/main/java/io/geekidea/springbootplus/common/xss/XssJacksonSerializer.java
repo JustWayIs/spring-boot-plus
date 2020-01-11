@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package io.geekidea.springbootplus.xss;
+package io.geekidea.springbootplus.common.xss;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringEscapeUtils;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * Xss过滤器
+ * Jackson响应参数字符串转义处理
  *
  * @author geekidea
  * @date 2019-10-10
  * @since 1.3.1.RELEASE
  **/
 @Slf4j
-@WebFilter(filterName = "xssFilter", urlPatterns = "/*", asyncSupported = true)
-public class XssFilter implements Filter {
+public class XssJacksonSerializer extends JsonSerializer<String> {
+
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        XssHttpServletRequestWrapper xssHttpServletRequestWrapper = new XssHttpServletRequestWrapper(request);
-        filterChain.doFilter(xssHttpServletRequestWrapper, servletResponse);
+    public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeString(StringEscapeUtils.escapeHtml4(s));
     }
+
 }
